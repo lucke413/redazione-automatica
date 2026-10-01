@@ -1,3 +1,0 @@
-Base: ai-vision-automation-main.zip
-SHA256: 228c77b1e2d8607926cf1a201a7c2c55008776a77da225864bd11857d5bcddd0
-Riutilizzati client WordPress, conversione Markdown e parser HTML. Nuovi workflow e motore editoriale separati.
