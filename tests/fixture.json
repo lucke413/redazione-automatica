@@ -1,0 +1,47 @@
+{
+  "sources": [
+    {
+      "id": "demo-fittizio",
+      "title": "Laboratorio fittizio nel museo",
+      "category": "Curiosità e storie",
+      "url": "https://example.org/demo",
+      "source_name": "Fonte fittizia di collaudo",
+      "published": "2026-10-01T10:16:30.231415+00:00",
+      "text": "Nel museo immaginario del paese si tiene un laboratorio sugli oggetti quotidiani. Il laboratorio è aperto il sabato pomeriggio e richiede prenotazione. I visitatori possono confrontare utensili di epoche diverse e osservare materiali e forme. Il percorso comprende tre tavoli dedicati alla cucina, alla scrittura e al viaggio. Una guida spiega le differenze e propone domande ai partecipanti. Non sono previsti esperimenti scientifici o valutazioni economiche degli oggetti. Le attività sono pensate come osservazione e confronto, senza assegnare premi. I partecipanti possono prendere appunti e chiedere spiegazioni. Il materiale resta all’interno del museo. La prenotazione serve a organizzare i gruppi e deve essere concordata con la segreteria. La comunicazione del museo non specifica il prezzo né la durata esatta. Questo testo è una fonte fittizia per test software, non una notizia pubblicabile."
+    }
+  ],
+  "draft": {
+    "title": "Tre tavoli per guardare gli oggetti quotidiani con occhi diversi",
+    "title_variants": [
+      "Gli oggetti quotidiani cambiano volto: il laboratorio di confronto",
+      "Cucina, scrittura e viaggio: cosa osservare al museo",
+      "Perché confrontare gli oggetti di epoche diverse"
+    ],
+    "body_markdown": "## Un oggetto, più domande\nUna visita può partire da una domanda semplice: che cosa cambia quando osserviamo un utensile accanto a uno di un’altra epoca? Nel laboratorio del museo immaginario il confronto riguarda proprio forme, materiali e impieghi quotidiani. La proposta invita a guardare con attenzione quello che normalmente passa inosservato. Non vengono annunciati risultati scientifici: il centro dell’attività è l’osservazione guidata.\n\n## Tre ambienti da esplorare\nIl percorso si articola in tre spazi di confronto. Il primo riguarda la cucina, il secondo gli strumenti per scrivere, il terzo ciò che accompagna il viaggio. Ogni tavolo offre un punto di partenza diverso, mentre la guida accompagna la lettura delle differenze. Si possono porre domande e annotare ciò che colpisce, senza che questo diventi una gara. La descrizione dell’iniziativa non prevede infatti premi.\n\nOsservare una forma vicino a un’altra permette di formulare domande precise. Il laboratorio propone questo esercizio senza promettere valutazioni sul prezzo o sul valore degli oggetti. Chi cerca una perizia economica non trova quindi quel servizio nell’attività descritta. Anche gli esperimenti restano fuori dal programma comunicato.\n\n## Come organizzare la partecipazione\nL’appuntamento è previsto nel pomeriggio di sabato. Per partecipare occorre contattare la segreteria e prenotare: questo passaggio permette di organizzare i gruppi. Gli oggetti utilizzati non vengono consegnati ai partecipanti, ma rimangono nella sede del museo.\n\nPrima di organizzare la visita restano due informazioni da chiedere direttamente: il costo e la durata. La comunicazione disponibile non li precisa, perciò non sarebbe corretto indicare un ingresso gratuito o attribuire un numero di minuti all’esperienza. La proposta documentata è un laboratorio di confronto e osservazione, accompagnato dalle spiegazioni della guida. Questo articolo è un esempio fittizio destinato esclusivamente a verificare il funzionamento del software.",
+    "excerpt": "Esempio fittizio: un percorso guidato tra oggetti e materiali.",
+    "seo_title": "Oggetti quotidiani: un laboratorio di confronto",
+    "seo_description": "Esempio software fittizio di un laboratorio dedicato a oggetti, forme e materiali.",
+    "focus_keyphrase": "oggetti quotidiani",
+    "tags": [
+      "Musei",
+      "Curiosità"
+    ],
+    "format": "CURIOSITA",
+    "risk": "low",
+    "fact_check_notes": [],
+    "claims": [
+      {
+        "claim": "Sabato pomeriggio",
+        "evidence": "Il laboratorio è aperto il sabato pomeriggio e richiede prenotazione."
+      },
+      {
+        "claim": "Tre tavoli",
+        "evidence": "Il percorso comprende tre tavoli dedicati alla cucina, alla scrittura e al viaggio."
+      },
+      {
+        "claim": "Prezzo non specificato",
+        "evidence": "La comunicazione del museo non specifica il prezzo né la durata esatta."
+      }
+    ]
+  }
+}
