@@ -1,0 +1,79 @@
+name: Redazione gratuita
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Pubblicare sul NUOVO sito configurato'
+        type: boolean
+        default: false
+  schedule:
+    - cron: '15 4,8,12,16 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: editorial-production
+  cancel-in-progress: false
+jobs:
+  editorial:
+    if: vars.EDITORIAL_ENABLED == 'true' && (github.event_name == 'workflow_dispatch' || vars.EDITORIAL_SCHEDULE_ENABLED == 'true')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GEMINI_API_KEY: ${{ secrets.EDITORIAL_GEMINI_API_KEY }}
+      FREE_TIER_CONFIRMED: ${{ vars.EDITORIAL_FREE_TIER_CONFIRMED }}
+      EDITORIAL_WP_URL: ${{ vars.EDITORIAL_WP_URL }}
+      EDITORIAL_WP_USER: ${{ secrets.EDITORIAL_WP_USER }}
+      EDITORIAL_WP_PASSWORD: ${{ secrets.EDITORIAL_WP_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: source
+      - name: Ripristina stato persistente separato
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git clone --no-checkout "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" state-repo
+          cd state-repo
+          if git ls-remote --exit-code --heads origin editorial-state >/dev/null; then
+            git checkout editorial-state
+          else
+            git checkout --orphan editorial-state
+            git rm -rf --ignore-unmatch .
+          fi
+          mkdir -p ../source/state
+          if [ -f editorial.sqlite ]; then cp editorial.sqlite ../source/state/; fi
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+        working-directory: source
+      - name: Produci e programma
+        working-directory: source
+        env:
+          PUBLISH_REQUEST: ${{ (github.event_name == 'schedule' && vars.EDITORIAL_AUTO_PUBLISH == 'true') || (github.event_name == 'workflow_dispatch' && inputs.publish) }}
+        run: |
+          if [ "$PUBLISH_REQUEST" = "true" ]; then
+            python scripts/pipeline.py --publish
+          else
+            python scripts/pipeline.py
+          fi
+      - name: Salva stato anche dopo errore o quota esaurita
+        if: always()
+        run: |
+          if [ -f source/state/editorial.sqlite ] && [ -d state-repo/.git ]; then
+            cp source/state/editorial.sqlite state-repo/editorial.sqlite
+            cd state-repo
+            git config user.name 'Editorial automation'
+            git config user.email 'editorial@users.noreply.github.com'
+            git add editorial.sqlite
+            if ! git diff --cached --quiet; then
+              git commit -m 'Aggiorna stato redazione'
+              git push origin editorial-state
+            fi
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: editorial-report-${{ github.run_id }}
+          path: source/output/
+          retention-days: 3
