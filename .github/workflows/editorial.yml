@@ -50,7 +50,7 @@ jobs:
       - name: Produci e programma
         working-directory: source
         env:
-          PUBLISH_REQUEST: ${{ github.event_name == 'schedule' || inputs.publish }}
+          PUBLISH_REQUEST: ${{ (github.event_name == 'schedule' && vars.EDITORIAL_AUTO_PUBLISH == 'true') || (github.event_name == 'workflow_dispatch' && inputs.publish) }}
         run: |
           if [ "$PUBLISH_REQUEST" = "true" ]; then
             python scripts/pipeline.py --publish
