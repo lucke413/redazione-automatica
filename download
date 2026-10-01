@@ -1,0 +1,7 @@
+.env
+__pycache__/
+*.pyc
+state/
+state-demo/
+output/
+.venv/
