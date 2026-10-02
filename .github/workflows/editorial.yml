@@ -47,6 +47,18 @@ jobs:
           python-version: '3.12'
       - run: pip install -r requirements.txt
         working-directory: source
+      - name: Pulisci report precedenti
+        working-directory: source
+        run: |
+          python - <<'PYTHON'
+          from pathlib import Path
+          for path in Path('output').glob('*'):
+              if path.is_file() and path.suffix in ('.json', '.html', '.csv', '.png'):
+                  path.unlink()
+          PYTHON
+      - name: Verifica test
+        working-directory: source
+        run: python -m unittest discover -s tests -p 'test_*.py'
       - name: Produci e programma
         working-directory: source
         env:
