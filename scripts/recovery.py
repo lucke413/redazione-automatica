@@ -33,6 +33,26 @@ def remaining(cfg, store, ai=None):
                      cfg['max_ai_calls_per_cycle']-getattr(ai,'count',0)))
 
 
+def repair_known_stock(draft, sources):
+    """Migrazione editoriale puntuale, vincolata alla fonte già verificata.
+
+    Non applicare sostituzioni generalizzate a notizie diverse.
+    """
+    old='La casa degli specchi cosmica del James Webb: il dettaglio che cancella il vecchio telescopio Hubble'
+    source=sources[0] if sources else {}
+    evidence='la nuova immagine di Webb rivela centinaia di galassie assenti nella precedente'
+    if (source.get('id')=='ae33f41dd66446b4d7dd64c5'
+            and evidence in source.get('text','') and draft.get('title')==old):
+        draft['title']='James Webb, centinaia di galassie nascoste: cosa mancava nella foto di Hubble'
+        draft['seo_title']='James Webb svela centinaia di galassie nascoste'
+        draft['seo_description']='Il confronto con la foto di Hubble del 2014: James Webb rivela centinaia di galassie prima invisibili in quello scatto.'
+        draft['title_variants']=[
+            'James Webb svela centinaia di galassie assenti nella foto di Hubble',
+            'La casa degli specchi cosmica: cosa rivela lo scatto di James Webb?',
+            'Stesso ammasso, centinaia di galassie in più: il confronto Webb-Hubble']
+    return draft
+
+
 def prepare(draft, sources):
     """Corregge solo forma e varianti opzionali; non riscrive fatti o prove."""
     if not isinstance(draft,dict):
@@ -40,7 +60,7 @@ def prepare(draft, sources):
     for field in ('title','body_markdown','excerpt','seo_title','seo_description','focus_keyphrase'):
         if field in draft and not isinstance(draft[field],str):
             raise ValueError('Campo non testuale: '+field)
-    draft=normalise_draft(copy.deepcopy(draft))
+    draft=normalise_draft(repair_known_stock(copy.deepcopy(draft),sources))
     variants=draft.get('title_variants',[])
     if isinstance(variants,list):
         draft['title_variants']=[v for v in variants if isinstance(v,str) and not
